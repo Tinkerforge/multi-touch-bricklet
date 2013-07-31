@@ -5,6 +5,9 @@ This repository contains the firmware source code and the hardware design
 files. The documentation generator configs can be found at
 https://github.com/Tinkerforge/generators
 
+**This Bricklet is currently in the prototype stage and the software/hardware
+is in a half-finished state.**
+
 Repository Content
 ------------------
 
