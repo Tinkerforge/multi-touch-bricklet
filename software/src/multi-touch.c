@@ -97,13 +97,6 @@ void get_touch_state(const ComType com, const GetTouchState *data) {
 	                               com);
 }
 
-void print_config(void) {
-	for(uint8_t i = 0; i < 127; i++) {
-		uint8_t data;
-		read_registers(i, (uint8_t*)&data, 1);
-	}
-}
-
 void constructor(void) {
 	PIN_IRQ.type = PIO_INPUT;
 	PIN_IRQ.attribute = PIO_PULLUP;
