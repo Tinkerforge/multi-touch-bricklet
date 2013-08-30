@@ -31,8 +31,15 @@
 #define I2C_INTERNAL_ADDRESS_BYTES 1
 #define I2C_DATA_LENGTH 1
 
-#define TOUCH_THRESHOLD   0x06
-#define RELEASE_THRESHOLD 0x0A
+#define I2C_READ  1
+#define I2C_WRITE 0
+
+//#define TOUCH_THRESHOLD   0x06
+//#define RELEASE_THRESHOLD 0x0A
+#define TOUCH_THRESHOLD              0x1F
+#define RELEASE_THRESHOLD            0x1A
+#define PROXIMITY_TOUCH_THRESHOLD    0x34
+#define PROXIMITY_RELEASE_THRESHOLD  0x30
 
 #define ELE07_T     0x00
 #define ELE811_T    0x01
@@ -85,6 +92,17 @@
 #define	NHD_F	    0x30
 #define	NCL_F	    0x31
 #define	FDL_F	    0x32
+#define	PROX_MHD_R  0x36
+#define	PROX_NHDA_R 0x37
+#define	PROX_NCL_R  0x38
+#define	PROX_FDL_R  0x39
+#define	PROX_MHD_F  0x3A
+#define	PROX_NHDA_F 0x3B
+#define	PROX_NCL_F  0x3C
+#define	PROX_NDL_F  0x3D
+#define	PROX_NHDAT  0x3E
+#define	PROX_NCLT   0x3F
+#define	PROX_FDLT   0x40
 #define	ELE0_T	    0x41
 #define	ELE0_R	    0x42
 #define	ELE1_T	    0x43
@@ -109,6 +127,9 @@
 #define	ELE10_R	    0x56
 #define	ELE11_T	    0x57
 #define	ELE11_R    	0x58
+#define PROX_T      0x59
+#define PROX_R      0x5A
+#define	DEBOUNCE    0x5B
 #define	FIL_CFG_CDC	0x5C
 #define	FIL_CFG_CDT	0x5D
 #define	ELE_CFG	    0x5E
@@ -124,6 +145,7 @@
 #define	ATO_CFGU	0x7D
 #define	ATO_CFGL	0x7E
 #define	ATO_CFGT	0x7F
+#define SOFT_RESET  0x80
 
 #define ENDOFCONFIG 0xFF
 
@@ -147,9 +169,13 @@
 #define ELE_CFG_CL_10            (0b10 << 6)
 #define ELE_CFG_CL_11            (0b11 << 6)
 
+#define I2C_HALF_CLOCK_400KHZ  1250  // 2500ns per clock
 
-#define FID_GET_TOUCH_STATE 1
-#define FID_TOUCH_STATE     2
+#define FID_GET_TOUCH_STATE       1
+#define FID_RECALIBRATE           2
+#define FID_SET_ELECTRODE_CONFIG  3
+#define FID_GET_ELECTRODE_CONFIG  4
+#define FID_TOUCH_STATE           5
 
 typedef struct {
 	MessageHeader header;
@@ -166,14 +192,49 @@ typedef struct {
 
 typedef struct {
 	MessageHeader header;
+} __attribute__((__packed__)) Recalibrate;
+
+typedef struct {
+	MessageHeader header;
+	uint16_t enabled_electrodes;
+} __attribute__((__packed__)) SetElectrodeConfig;
+
+typedef struct {
+	MessageHeader header;
+} __attribute__((__packed__)) GetElectrodeConfig;
+
+typedef struct {
+	MessageHeader header;
+	uint16_t enabled_electrodes;
+} __attribute__((__packed__)) GetElectrodeConfigReturn;
+
+typedef struct {
+	MessageHeader header;
 	uint16_t state;
 } __attribute__((__packed__)) TouchState;
 
 void get_touch_state(const ComType com, const GetTouchState *data);
+void recalibrate(const ComType com, const Recalibrate *data);
+void set_electrode_config(const ComType com, const SetElectrodeConfig *data);
+void get_electrode_config(const ComType com, const GetElectrodeConfig *data);
 
+void mpr121_reset(void);
+void mpr121_disable(void);
+void mpr121_enable(void);
 void mpr121_configure(void);
 void read_registers(const uint8_t reg, uint8_t *data, const uint8_t length);
 void write_register(const uint8_t reg, uint8_t value);
+
+void i2c_scl_high(void);
+void i2c_scl_low(void);
+bool i2c_sda_value(void);
+void i2c_sda_high(void);
+void i2c_sda_low(void);
+void i2c_sleep_halfclock(void);
+void i2c_stop(void);
+void i2c_start(void);
+uint8_t i2c_recv_byte(bool ack);
+bool i2c_send_byte(uint8_t value);
 
 void invocation(const ComType com, const uint8_t *data);
 void constructor(void);

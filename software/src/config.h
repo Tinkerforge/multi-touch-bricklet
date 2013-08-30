@@ -39,7 +39,11 @@
 
 #define BRICKLET_DEVICE_IDENTIFIER 234
 
+#define BOARD_MCK 64000000
+
 #define PIN_IRQ (BS->pin1_ad)
+#define PIN_SCL (BS->pin2_da)
+#define PIN_SDA (BS->pin3_pwm)
 
 #define LOGGING_LEVEL LOGGING_DEBUG
 #define DEBUG_BRICKLET 0
@@ -49,7 +53,9 @@
 
 typedef struct {
 	uint16_t state;
+	uint16_t enabled_electrodes;
 	bool send_state_callback;
+	bool force_read;
 } BrickContext;
 
 #endif
