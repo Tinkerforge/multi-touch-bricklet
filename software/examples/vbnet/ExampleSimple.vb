@@ -15,9 +15,9 @@ Module ExampleSimple
         ' Get current touch_state
         Dim touch_state As Integer = si.GetTouchState()
 
-        System.Console.WriteMultiTouch("TouchState: " + touch_state.ToString())
+        System.Console.WriteLine("TouchState: " + touch_state.ToString())
 
-        System.Console.WriteMultiTouch("Press key to exit")
+        System.Console.WriteLine("Press key to exit")
         System.Console.ReadKey()
         ipcon.Disconnect()
     End Sub
