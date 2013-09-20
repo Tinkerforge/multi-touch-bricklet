@@ -21,7 +21,7 @@ mt.register_callback(BrickletMultiTouch::CALLBACK_TOUCH_STATE) do |touch_state|
     s = ''
     if (touch_state & (1 << 12)) == (1 << 12)
         s += 'In proximity, '
-	end
+    end
 
     if (touch_state & 0xFFF) == 0
         s += 'No electrodes touched'
@@ -30,13 +30,13 @@ mt.register_callback(BrickletMultiTouch::CALLBACK_TOUCH_STATE) do |touch_state|
         for i in 0..11
             if (touch_state & (1 << i)) == (1 << i)
                 s += i.to_s() + ' '
-			end
-		end
+            end
+        end
         s += 'touched'
-	end
+    end
 
     puts s
-	puts
+    puts
 end
 
 puts 'Press key to exit'
