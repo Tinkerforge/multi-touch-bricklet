@@ -54,6 +54,7 @@
 typedef struct {
 	uint16_t state;
 	uint16_t enabled_electrodes;
+	uint8_t sensitivity;
 	bool send_state_callback;
 	bool force_read;
 } BrickContext;

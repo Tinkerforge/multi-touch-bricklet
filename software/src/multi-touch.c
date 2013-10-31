@@ -88,9 +88,9 @@ const uint8_t mpr121_config[][2] = {
 
 	// Auto Config
 
-	{ATO_CFGU, 0xC9},
-	{ATO_CFGL, 0x82},
-	{ATO_CFGT, 0xB5},
+	{ATO_CFGU, ELECTRODE_SENSITIVITY_MAX},
+//	{ATO_CFGL, MPR121_TL_TO_UTL(ELECTRODE_SENSITIVITY_DEFAULT)},
+//	{ATO_CFGT, ELECTRODE_SENSITIVITY_DEFAULT},
 	{ATO_CFG0, 0x03},
 
 	{ENDOFCONFIG, 0}
@@ -115,6 +115,16 @@ void invocation(const ComType com, const uint8_t *data) {
 
 		case FID_GET_ELECTRODE_CONFIG: {
 			get_electrode_config(com, (GetElectrodeConfig*)data);
+			return;
+		}
+
+		case FID_SET_ELECTRODE_SENSITIVITY: {
+			set_electrode_sensitivity(com, (SetElectrodeSensitivity*)data);
+			return;
+		}
+
+		case FID_GET_ELECTRODE_SENSITIVITY: {
+			get_electrode_sensitivity(com, (GetElectrodeSensitivity*)data);
 			return;
 		}
 
@@ -165,6 +175,22 @@ void get_electrode_config(const ComType com, const GetElectrodeConfig *data) {
 	                               com);
 }
 
+void set_electrode_sensitivity(const ComType com, const SetElectrodeSensitivity *data) {
+	BC->sensitivity = BETWEEN(ELECTRODE_SENSITIVITY_MIN, data->sensitivity, ELECTRODE_SENSITIVITY_MAX);
+	mpr121_update_sensitivity();
+}
+
+void get_electrode_sensitivity(const ComType com, const GetElectrodeSensitivity *data) {
+	GetElectrodeSensitivityReturn gesr;
+	gesr.header             = data->header;
+	gesr.header.length      = sizeof(GetElectrodeSensitivityReturn);
+	gesr.sensitivity        = BC->sensitivity;
+
+	BA->send_blocking_with_timeout(&gesr,
+	                               sizeof(GetElectrodeSensitivityReturn),
+	                               com);
+}
+
 void constructor(void) {
     PIN_SDA.type = PIO_INPUT;
     PIN_SDA.attribute = PIO_DEFAULT;
@@ -184,6 +210,7 @@ void constructor(void) {
 	BC->enabled_electrodes = 0x1FFF;
 	BC->send_state_callback = false;
 	BC->force_read = false;
+	BC->sensitivity = ELECTRODE_SENSITIVITY_DEFAULT;
 
 	mpr121_reset();
 	SLEEP_US(20);
@@ -230,6 +257,11 @@ void mpr121_disable(void) {
 	write_register(ELE_CFG, 0x00);
 }
 
+void mpr121_update_sensitivity(void) {
+	write_register(ATO_CFGL, MPR121_TL_TO_UTL(BC->sensitivity));
+	write_register(ATO_CFGT, BC->sensitivity);
+}
+
 void mpr121_enable(void) {
 	uint16_t value = BC->enabled_electrodes & 0xFFF;
 	if(BC->enabled_electrodes & (1 << 12)) {
@@ -240,6 +272,8 @@ void mpr121_enable(void) {
 }
 
 void mpr121_configure(void) {
+	mpr121_update_sensitivity();
+
 	for(uint8_t i = 0; mpr121_config[i][0] != ENDOFCONFIG; i++) {
 		write_register(mpr121_config[i][0], mpr121_config[i][1]);
 	}

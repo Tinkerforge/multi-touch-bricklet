@@ -171,11 +171,19 @@
 
 #define I2C_HALF_CLOCK_400KHZ  1250  // 2500ns per clock
 
-#define FID_GET_TOUCH_STATE       1
-#define FID_RECALIBRATE           2
-#define FID_SET_ELECTRODE_CONFIG  3
-#define FID_GET_ELECTRODE_CONFIG  4
-#define FID_TOUCH_STATE           5
+#define ELECTRODE_SENSITIVITY_DEFAULT  0xB5 // Default value taken from MPR121 datasheet
+#define ELECTRODE_SENSITIVITY_MIN      0x05
+#define ELECTRODE_SENSITIVITY_MAX      0xC9
+
+#define MPR121_TL_TO_UTL(x) ((x)*72/100) // LSL = USL*0.65 == TL*0.72!
+
+#define FID_GET_TOUCH_STATE            1
+#define FID_RECALIBRATE                2
+#define FID_SET_ELECTRODE_CONFIG       3
+#define FID_GET_ELECTRODE_CONFIG       4
+#define FID_TOUCH_STATE                5
+#define FID_SET_ELECTRODE_SENSITIVITY  6
+#define FID_GET_ELECTRODE_SENSITIVITY  7
 
 typedef struct {
 	MessageHeader header;
@@ -213,13 +221,30 @@ typedef struct {
 	uint16_t state;
 } __attribute__((__packed__)) TouchState;
 
+typedef struct {
+	MessageHeader header;
+	uint8_t sensitivity;
+} __attribute__((__packed__)) SetElectrodeSensitivity;
+
+typedef struct {
+	MessageHeader header;
+} __attribute__((__packed__)) GetElectrodeSensitivity;
+
+typedef struct {
+	MessageHeader header;
+	uint8_t sensitivity;
+} __attribute__((__packed__)) GetElectrodeSensitivityReturn;
+
 void get_touch_state(const ComType com, const GetTouchState *data);
 void recalibrate(const ComType com, const Recalibrate *data);
 void set_electrode_config(const ComType com, const SetElectrodeConfig *data);
 void get_electrode_config(const ComType com, const GetElectrodeConfig *data);
+void set_electrode_sensitivity(const ComType com, const SetElectrodeSensitivity *data);
+void get_electrode_sensitivity(const ComType com, const GetElectrodeSensitivity *data);
 
 void mpr121_reset(void);
 void mpr121_disable(void);
+void mpr121_update_sensitivity(void);
 void mpr121_enable(void);
 void mpr121_configure(void);
 void read_registers(const uint8_t reg, uint8_t *data, const uint8_t length);
