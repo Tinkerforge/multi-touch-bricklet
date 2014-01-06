@@ -192,6 +192,8 @@ void get_electrode_sensitivity(const ComType com, const GetElectrodeSensitivity 
 }
 
 void constructor(void) {
+	_Static_assert(sizeof(BrickContext) <= BRICKLET_CONTEXT_MAX_SIZE, "BrickContext too big");
+
     PIN_SDA.type = PIO_INPUT;
     PIN_SDA.attribute = PIO_DEFAULT;
     BA->PIO_Configure(&PIN_SDA, 1);
