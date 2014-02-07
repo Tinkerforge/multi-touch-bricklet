@@ -1,0 +1,157 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[      5705,        156]
+NotebookOptionsPosition[      5272,        135]
+NotebookOutlinePosition[      5610,        150]
+CellTagsIndexPosition[      5567,        147]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<NETLink`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"LoadNETAssembly", "[", 
+  RowBox[{"\"\<Tinkerforge\>\"", ",", 
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", "\"\<../../..\>\""}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.600175052949191*^9, 3.600175066601799*^9}, 
+   3.600175102142559*^9, {3.6001753172765293`*^9, 3.600175317946432*^9}, {
+   3.600500538026902*^9, 3.600500561851948*^9}, {3.600506097634747*^9, 
+   3.600506099012146*^9}, 3.600506136278721*^9, {3.60060805238198*^9, 
+   3.600608117803465*^9}, 3.600685373189396*^9}],
+
+Cell[BoxData[{
+ RowBox[{"host", "=", "\"\<localhost\>\""}], "\[IndentingNewLine]", 
+ RowBox[{"port", "=", "4223"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"uid", "=", "\"\<fdsg\>\""}], 
+  RowBox[{"(*", " ", 
+   RowBox[{"Change", " ", "to", " ", "your", " ", "UID"}], " ", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Create", " ", "IPConnection", " ", "and", " ", "device", " ", "object"}], 
+   " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"ipcon", "=", 
+  RowBox[{"NETNew", "[", "\"\<Tinkerforge.IPConnection\>\"", "]"}]}], "\n", 
+ RowBox[{"mt", "=", 
+  RowBox[{"NETNew", "[", 
+   RowBox[{
+   "\"\<Tinkerforge.BrickletMultiTouch\>\"", ",", "uid", ",", "ipcon"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ipcon", "@", 
+   RowBox[{"Connect", "[", 
+    RowBox[{"host", ",", "port"}], "]"}]}], "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Get", " ", "current", " ", "touchState"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"touchStateBits", "=", 
+  RowBox[{"IntegerDigits", "[", 
+   RowBox[{
+    RowBox[{"mt", "@", 
+     RowBox[{"GetTouchState", "[", "]"}]}], ",", "2", ",", "13"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"result", "=", 
+   RowBox[{"{", "}"}]}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"touchStateBits", "[", 
+      RowBox[{"[", 
+       RowBox[{"-", "13"}], "]"}], "]"}], "\[Equal]", "1"}], ",", 
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"result", ",", "\"\<In proximity, \>\""}], "]"}]}], "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Total", "[", 
+      RowBox[{"touchStateBits", "[", 
+       RowBox[{"[", 
+        RowBox[{"2", ";;", "13"}], "]"}], "]"}], "]"}], "\[Equal]", "0"}], 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"result", ",", "\"\<No electrodes touched\>\""}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"result", ",", "\"\<Electrodes \>\""}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", 
+        RowBox[{"-", "1"}]}], ",", 
+       RowBox[{"i", "\[GreaterEqual]", 
+        RowBox[{"-", "12"}]}], ",", 
+       RowBox[{"--", "i"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"touchStateBits", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "\[Equal]", "1"}], ",", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"result", ",", 
+           RowBox[{
+            RowBox[{"ToString", "[", 
+             RowBox[{
+              RowBox[{"Abs", "[", "i", "]"}], "-", "1"}], "]"}], "<>", 
+            "\"\< \>\""}]}], "]"}]}], "]"}]}], "\[IndentingNewLine]", "]"}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"result", ",", "\"\<touched\>\""}], "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"StringJoin", "[", "result", "]"}], "]"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Clean", " ", "up"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"ipcon", "@", 
+  RowBox[{"Disconnect", "[", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"ReleaseNETObject", "[", "mt", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ReleaseNETObject", "[", "ipcon", "]"}]}], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwdzV1Ik3EYBfCXEFsqFuTH6EJsFItWoi5L5kjLaLtocyRMUXGypr0002GZ
+Ehr0YdCM1daorbUxozG8kMVUnJGChCMHDW3kVJbuSvRlGkkzjBT/53/x8IMD
+5zzHte3Xmw8wDHOaHJzVbJ2zf+cuFWqLS6BJsaSBJ9e/aeHUnvkmlK8MdsCf
+KkkXFIjKLTAldeEdFCfETvgxL7vnLbHfc4fa8nL+MfUPR9UHBhJuYub42AZc
+sWckoauV+wvVlob/cC3KUoveeAUDyPMcJ2AbP0UEk2fVBZCVcyUw6NihLrt6
+LdAwKXsFa3LtlRP4X7mghDJnWA2LYw218LXRKP1CVJhnL8K2ZD4Twl5Acxja
+TTdy4OjuIT48eFuyyEZIryZrCYbKP3Ow1f+DGkz7ZNUTuc1JBxQleB7Ixm1e
+WLHTXe8kSkcqdPCF8JgB9rJVVEnntU44U9tETbdtz0H38+A8DDdGuTWiUutL
+QOnDjt9QUbf4D24KS9PXibY4PwteafQXwKdPesTQ5btVBs8r31PvntJdhsaZ
+ORnkjaVWw6O6eBNcFWTqoXuw7z48wygfwOmhaWqsLPQImlSGPngkZnsG7y17
+qDn9ESustsapH6ouDMOJX9vUva8ZAbhVmkvt9l4NQ9VUO3Uf5MWO0Q==
+  "]]
+},
+WindowSize->{1521, 867},
+WindowMargins->{{154, Automatic}, {70, Automatic}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[400, 13, 602, 11, 55, "Input"],
+Cell[1005, 26, 4263, 107, 671, "Input"]
+}
+]
+*)
+
