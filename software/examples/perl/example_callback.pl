@@ -7,8 +7,8 @@ use constant HOST => 'localhost';
 use constant PORT => 4223;
 use constant UID => 'jSN'; # Change to your UID
 
-my $ipcon = IPConnection->new(); # Create IP connection
-my $mt = BrickletMultiTouch->new(&UID, $ipcon); # Create device object
+my $ipcon = Tinkerforge::IPConnection->new(); # Create IP connection
+my $mt = Tinkerforge::BrickletMultiTouch->new(&UID, $ipcon); # Create device object
 
 # Callback function for touch_state
 sub cb_touch_state
