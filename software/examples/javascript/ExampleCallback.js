@@ -1,12 +1,11 @@
-var IPConnection = require('Tinkerforge/IPConnection');
-var BrickletMultiTouch = require('Tinkerforge/BrickletMultiTouch');
+var Tinkerforge = require('tinkerforge');
 
 var HOST = 'localhost';
 var PORT = 4223;
 var UID = 'jQs';// Change to your UID
 
-var ipcon = new IPConnection();// Create IP connection
-var mt = new BrickletMultiTouch(UID, ipcon);// Create device object
+var ipcon = new Tinkerforge.IPConnection();// Create IP connection
+var mt = new Tinkerforge.BrickletMultiTouch(UID, ipcon);// Create device object
 
 ipcon.connect(HOST, PORT,
     function(error) {
@@ -17,7 +16,7 @@ ipcon.connect(HOST, PORT,
 // Don't use device before ipcon is connected
 
 // Register touch state callback
-mt.on(BrickletMultiTouch.CALLBACK_TOUCH_STATE,
+mt.on(Tinkerforge.BrickletMultiTouch.CALLBACK_TOUCH_STATE,
     // Callback function for touch state
     function(touchState) {
         var s = '';
