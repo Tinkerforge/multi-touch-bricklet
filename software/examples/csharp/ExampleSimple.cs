@@ -14,7 +14,7 @@ class Example
 		ipcon.Connect(HOST, PORT); // Connect to brickd
 		// Don't use device before ipcon is connected
 
-		// Get current touch_state
+		// Get current touch state
 		int touchState = mt.GetTouchState();
 
 		string str = "";

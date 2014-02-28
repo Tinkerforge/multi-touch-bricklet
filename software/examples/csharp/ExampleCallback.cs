@@ -6,7 +6,7 @@ class Example
 	private static int PORT = 4223;
 	private static string UID = "XYZ"; // Change to your UID
 
-	// Callback function for touchState
+	// Callback function for touch state
 	static void TouchStateCB(BrickletMultiTouch sender, int touchState)
 	{
 		string str = "";
