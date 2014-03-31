@@ -24,7 +24,7 @@ if (($touch_state) & ($left_shift_1_12_bits))
 }
 if (($touch_state & 0xFFF) == 0)
 {
-        $s .= 'No electrodes touched';
+    $s .= 'No electrodes touched';
 } 
 else
 {
