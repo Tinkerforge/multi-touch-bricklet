@@ -22,6 +22,7 @@ if (($touch_state) & ($left_shift_1_12_bits))
 {
     $s .= 'In proximity, ';
 }
+
 if (($touch_state & 0xFFF) == 0)
 {
     $s .= 'No electrodes touched';
@@ -39,11 +40,13 @@ else
             $s .= "$i ";
         }
     }
+
     $s .= 'touched';
 }
-print "\n$s\n";
 
-print "\nPress any key to exit...\n";
+print "$s\n";
+
+print "Press any key to exit...\n";
 <STDIN>;
 $ipcon->disconnect();
 

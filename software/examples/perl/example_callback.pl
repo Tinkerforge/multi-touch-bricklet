@@ -22,6 +22,7 @@ sub cb_touch_state
     {
         $s .= 'In proximity, ';
     }
+
     if (($touch_state & 0xFFF) == 0)
     {
         $s .= 'No electrodes touched';
@@ -39,17 +40,20 @@ sub cb_touch_state
                 $s .= "$i ";
             }
         }
+
         $s .= 'touched';
     }
-    print "\n$s\n";
+
+    print "$s\n";
 }
+
 $ipcon->connect(&HOST, &PORT); # Connect to brickd
 # Don't use device before ipcon is connected
 
 # Register touch state callback to function cb_touch_state
 $mt->register_callback($mt->CALLBACK_TOUCH_STATE, 'cb_touch_state');
 
-print "\nPress any key to exit...\n";
+print "Press any key to exit...\n";
 <STDIN>;
 $ipcon->disconnect();
 
