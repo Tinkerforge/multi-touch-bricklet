@@ -1,4 +1,4 @@
-function matlab_example_simple
+function matlab_example_simple()
     import com.tinkerforge.IPConnection;
     import com.tinkerforge.BrickletMultiTouch;
 
@@ -37,5 +37,3 @@ function matlab_example_simple
     input('Press any key to exit...\n', 's');
     ipcon.disconnect();
 end
-
-
