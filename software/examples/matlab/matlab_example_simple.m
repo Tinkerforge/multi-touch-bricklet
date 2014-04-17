@@ -13,18 +13,18 @@ function matlab_example_simple
     % Don't use device before ipcon is connected
 
     % Get current touch state
-    touch_state = mt.getTouchState();
+    state = mt.getTouchState();
 
     s = '';
-    if bitand(touch_state, bitshift(1,12))
+    if bitand(state, bitshift(1,12))
         s = strcat(s, {'In proximity, '});
     end
-    if (bitand(touch_state, hex2dec('FFF'))) == 0
+    if (bitand(state, hex2dec('FFF'))) == 0
         s = strcat(s, {'No electrodes touched'});
     else
         s = 'Electrodes '
         for i = 0:11
-            if bitand(touch_state, bitshift(1, i))
+            if bitand(state, bitshift(1, i))
                 s = strcat(s, {' '});
                 s = strcat(s, num2str(i));
                 s = strcat(s, {' '});
@@ -34,7 +34,7 @@ function matlab_example_simple
     end
     disp(s);
 
-    input('\nPress any key to exit...\n', 's');
+    input('Press any key to exit...\n', 's');
     ipcon.disconnect();
 end
 

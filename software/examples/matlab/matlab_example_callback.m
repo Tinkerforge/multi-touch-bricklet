@@ -13,24 +13,24 @@ function matlab_example_callback
     % Don't use device before ipcon is connected
 
     % Register touch state callback to function cb_touch_state
-    set(mt, 'TouchStateCallback', @(h, e)cb_touch_state(e.state));
+    set(mt, 'TouchStateCallback', @(h, e) cb_touch_state(e));
 
-    input('\nPress any key to exit...\n', 's');
+    input('Press any key to exit...\n', 's');
     ipcon.disconnect();
 end
 
 % Callback function for touch_state
-function cb_touch_state(touch_state)
+function cb_touch_state(e)
     s = '';
-    if bitand(touch_state, bitshift(1, 12))
+    if bitand(e.state, bitshift(1, 12))
         s = strcat(s, {'In proximity, '});
     end
-    if (bitand(touch_state, hex2dec('FFF'))) == 0
+    if (bitand(e.state, hex2dec('FFF'))) == 0
         s = strcat(s, {'No electrodes touched'});
     else
         s = strcat(s, {'Electrodes '});
         for i = 0:11
-            if bitand(touch_state, bitshift(1, i))
+            if bitand(e.state, bitshift(1, i))
                 s = strcat(s, {' '});
                 s = strcat(s, num2str(i));
                 s = strcat(s, {' '});
