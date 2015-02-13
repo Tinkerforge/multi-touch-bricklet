@@ -18,7 +18,7 @@ Module ExampleSimple
         System.Console.WriteLine("TouchState: " + touch_state.ToString())
 
         System.Console.WriteLine("Press key to exit")
-        System.Console.ReadKey()
+        System.Console.ReadLine()
         ipcon.Disconnect()
     End Sub
 End Module

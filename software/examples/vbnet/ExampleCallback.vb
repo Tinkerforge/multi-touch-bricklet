@@ -7,25 +7,25 @@ Module ExampleCallback
 
     ' Callback function for touch state
     Sub TouchStateCB(ByVal sender As BrickletMultiTouch, ByVal touchState As Integer)
-		Dim s As String = ""
-		
-		If ((touchState And (1 << 12)) = (1 << 12)) Then
-			s &= "In proximity, "
-		End If
+        Dim s As String = ""
 
-		If ((touchState And &Hfff) = 0) Then
-			s &= "No electrodes touched" + System.Environment.NewLine
-		Else
-			s &= "Electrodes "
-			For i As Integer = 0 To 11
-				If ((touchState And (1 << i)) = (1 << i)) Then
-					s &= i.ToString() & " "
-				End If
-			Next
-			s &= "touched" + System.Environment.NewLine
-		End If
+        If ((touchState And (1 << 12)) = (1 << 12)) Then
+            s &= "In proximity, "
+        End If
 
-		System.Console.WriteLine(s)
+        If ((touchState And &Hfff) = 0) Then
+            s &= "No electrodes touched" + System.Environment.NewLine
+        Else
+            s &= "Electrodes "
+            For i As Integer = 0 To 11
+                If ((touchState And (1 << i)) = (1 << i)) Then
+                    s &= i.ToString() & " "
+                End If
+            Next
+            s &= "touched" + System.Environment.NewLine
+        End If
+
+        System.Console.WriteLine(s)
     End Sub
 
     Sub Main()
@@ -39,7 +39,7 @@ Module ExampleCallback
         AddHandler mt.TouchState, AddressOf TouchStateCB
 
         System.Console.WriteLine("Press key to exit")
-        System.Console.ReadKey()
+        System.Console.ReadLine()
         ipcon.Disconnect()
     End Sub
 End Module
