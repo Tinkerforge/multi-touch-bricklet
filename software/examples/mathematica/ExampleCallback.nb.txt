@@ -10,7 +10,7 @@ ipcon=NETNew["Tinkerforge.IPConnection"]
 mt=NETNew["Tinkerforge.BrickletMultiTouch",uid,ipcon]
 ipcon@Connect[host,port]
 
-(* allback function for touchState *)
+(* Callback function for touchState *)
 TouchStateCB[sender_,touchState_]:=
  Module[{},
   touchStateBits=IntegerDigits[touchState,2,13];

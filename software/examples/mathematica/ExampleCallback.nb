@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[      7693,        183]
-NotebookOptionsPosition[      7260,        162]
-NotebookOutlinePosition[      7598,        177]
-CellTagsIndexPosition[      7555,        174]
+NotebookDataLength[      7709,        182]
+NotebookOptionsPosition[      7282,        161]
+NotebookOutlinePosition[      7614,        176]
+CellTagsIndexPosition[      7571,        173]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -47,11 +47,10 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"ipcon", "@", 
    RowBox[{"Connect", "[", 
-    RowBox[{"host", ",", "port"}], "]"}]}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]", 
+    RowBox[{"host", ",", "port"}], "]"}]}], "\n", "\[IndentingNewLine]", 
   RowBox[{"(*", " ", 
-   RowBox[{"allback", " ", "function", " ", "for", " ", "touchState"}], " ", 
-   "*)"}]}], "\n", 
+   RowBox[{"Callback", " ", "function", " ", "for", " ", "touchState"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"TouchStateCB", "[", 
@@ -158,11 +157,11 @@ Cell[BoxData[{
    3.600764025752447*^9, 3.6007640797097282`*^9}, {3.600764242833353*^9, 
    3.6007642726046143`*^9}, {3.600764397357039*^9, 3.6007644087064123`*^9}, {
    3.600764448720763*^9, 3.600764449742139*^9}, {3.600764539349498*^9, 
-   3.6007645406048527`*^9}}]
+   3.6007645406048527`*^9}, 3.6437100444111137`*^9}]
 },
 WindowSize->{1521, 867},
-WindowMargins->{{333, Automatic}, {53, Automatic}},
-FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+WindowMargins->{{332, 65}, {52, Automatic}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (November 20, 2012)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -177,7 +176,7 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[400, 13, 652, 12, 55, "Input"],
-Cell[1055, 27, 6201, 133, 759, "Input"]
+Cell[1055, 27, 6223, 132, 759, "Input"]
 }
 ]
 *)
