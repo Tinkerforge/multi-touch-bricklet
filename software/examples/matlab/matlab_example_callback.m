@@ -23,20 +23,20 @@ end
 function cb_touch_state(e)
     s = '';
     if bitand(e.state, bitshift(1, 12))
-        s = strcat(s, {'In proximity, '});
+        s = strcat(s, 'In proximity, ');
     end
     if (bitand(e.state, hex2dec('FFF'))) == 0
-        s = strcat(s, {'No electrodes touched'});
+        s = strcat(s, 'No electrodes touched');
     else
-        s = strcat(s, {'Electrodes '});
+        s = strcat(s, 'Electrodes ');
         for i = 0:11
             if bitand(e.state, bitshift(1, i))
-                s = strcat(s, {' '});
+                s = strcat(s, ' ');
                 s = strcat(s, num2str(i));
-                s = strcat(s, {' '});
+                s = strcat(s, ' ');
             end
         end
-        s = strcat(s, {' touched'});
+        s = strcat(s, ' touched');
     end
     disp(s);
 end

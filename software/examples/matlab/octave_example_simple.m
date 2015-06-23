@@ -16,17 +16,17 @@ function octave_example_simple()
 
     s = "";
     if bitand(state, bitshift(1,12))
-        s = strcat(s, {"In proximity, "});
+        s = strcat(s, "In proximity, ");
     end
     if (bitand(state, hex2dec("FFF"))) == 0
-        s = strcat(s, {"No electrodes touched"});
+        s = strcat(s, "No electrodes touched");
     else
         s = "Electrodes "
         for i = 0:11
             if bitand(state, bitshift(1, i))
-                s = strcat(s, {" "});
+                s = strcat(s, " ");
                 s = strcat(s, num2str(i));
-                s = strcat(s, {" "});
+                s = strcat(s, " ");
             end
         end
         s = strcat(s, "touched");
