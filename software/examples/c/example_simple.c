@@ -14,7 +14,7 @@ int main() {
 
 	// Create device object
 	MultiTouch mt;
-	multi_touch_create(&mt, UID, &ipcon); 
+	multi_touch_create(&mt, UID, &ipcon);
 
 	// Connect to brickd
 	if(ipcon_connect(&ipcon, HOST, PORT) < 0) {

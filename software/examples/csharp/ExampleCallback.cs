@@ -30,7 +30,7 @@ class Example
 		System.Console.WriteLine(str);
 	}
 
-	static void Main() 
+	static void Main()
 	{
 		IPConnection ipcon = new IPConnection(); // Create IP connection
 		BrickletMultiTouch mt = new BrickletMultiTouch(UID, ipcon); // Create device object
