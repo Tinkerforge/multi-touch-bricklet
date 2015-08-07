@@ -6,7 +6,7 @@ PORT = 4223
 UID = "XYZ" # Change to your UID
 
 from tinkerforge.ip_connection import IPConnection
-from tinkerforge.bricklet_multi_touch import MultiTouch
+from tinkerforge.bricklet_multi_touch import BrickletMultiTouch
 
 # Callback function for touch_state
 def cb_touch_state(touch_state):
@@ -27,7 +27,7 @@ def cb_touch_state(touch_state):
 
 if __name__ == "__main__":
     ipcon = IPConnection() # Create IP connection
-    mt = MultiTouch(UID, ipcon) # Create device object
+    mt = BrickletMultiTouch(UID, ipcon) # Create device object
 
     ipcon.connect(HOST, PORT) # Connect to brickd
     # Don't use device before ipcon is connected
