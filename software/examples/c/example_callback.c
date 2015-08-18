@@ -19,7 +19,8 @@ void cb_touch_state(uint16_t touch_state, void *user_data) {
 		printf("No electrodes touched\n\n");
 	} else {
 		printf("Electrodes ");
-		for(int i = 0; i < 12; i++) {
+		int i;
+		for(i = 0; i < 12; i++) {
 			if(touch_state & (1 << i)) {
 				printf("%d ", i);
 			}
