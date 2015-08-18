@@ -38,8 +38,7 @@ int main(void) {
 		printf("No electrodes touched\n\n");
 	} else {
 		printf("Electrodes ");
-		int i = 0;
-		for(; i < 12; i++) {
+		for(int i = 0; i < 12; i++) {
 			if(touch_state & (1 << i)) {
 				printf("%d ", i);
 			}
