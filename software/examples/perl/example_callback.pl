@@ -1,11 +1,11 @@
-#!/usr/bin/perl  
+#!/usr/bin/perl
 
 use Tinkerforge::IPConnection;
 use Tinkerforge::BrickletMultiTouch;
 
 use constant HOST => 'localhost';
 use constant PORT => 4223;
-use constant UID => 'jSN'; # Change to your UID
+use constant UID => 'XYZ'; # Change to your UID
 
 my $ipcon = Tinkerforge::IPConnection->new(); # Create IP connection
 my $mt = Tinkerforge::BrickletMultiTouch->new(&UID, $ipcon); # Create device object
@@ -56,4 +56,3 @@ $mt->register_callback($mt->CALLBACK_TOUCH_STATE, 'cb_touch_state');
 print "Press any key to exit...\n";
 <STDIN>;
 $ipcon->disconnect();
-
