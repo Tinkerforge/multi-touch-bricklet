@@ -10,23 +10,23 @@ const HOST = 'localhost';
 const PORT = 4223;
 const UID = 'XYZ'; // Change to your UID
 
-// Callback function for touch state
-function cb_touch_state($touchState)
+// Callback function for touch state callback
+function cb_touchState($state)
 {
-    if($touchState & (1 << 12)) {
+    if($state & (1 << 12)) {
         echo "In proximity, ";
     }
 
-    if(($touchState & 0xfff) == 0) {
-        echo "No electrodes touched\n\n";
+    if(($state & 0xfff) == 0) {
+        echo "No electrodes touched\n";
     } else {
         echo "Electrodes ";
         for($i = 0; $i < 12; $i++) {
-            if($touchState & (1 << $i)) {
+            if($state & (1 << $i)) {
                 echo $i . " ";
             }
         }
-        echo "touched\n\n";
+        echo "touched\n";
     }
 }
 
@@ -36,8 +36,8 @@ $mt = new BrickletMultiTouch(UID, $ipcon); // Create device object
 $ipcon->connect(HOST, PORT); // Connect to brickd
 // Don't use device before ipcon is connected
 
-// Register touch state callback to function cb_touch_state
-$mt->registerCallback(BrickletMultiTouch::CALLBACK_TOUCH_STATE, 'cb_touch_state');
+// Register touch state callback to function cb_touchState
+$mt->registerCallback(BrickletMultiTouch::CALLBACK_TOUCH_STATE, 'cb_touchState');
 
 echo "Press ctrl+c to exit\n";
 $ipcon->dispatchCallbacks(-1); // Dispatch callbacks forever

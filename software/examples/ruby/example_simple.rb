@@ -17,23 +17,23 @@ ipcon.connect HOST, PORT # Connect to brickd
 # Don't use device before ipcon is connected
 
 # Get current touch state
-touch_state = mt.get_touch_state
-
+state = mt.get_touch_state
 s = ''
-if (touch_state & (1 << 12)) == (1 << 12)
-	s += 'In proximity, '
+
+if (state & (1 << 12)) == (1 << 12)
+  s += 'In proximity, '
 end
 
-if (touch_state & 0xFFF) == 0
-	s += 'No electrodes touched'
+if (state & 0xfff) == 0
+  s += 'No electrodes touched'
 else
-	s += 'Electrodes '
-	for i in 0..11
-		if (touch_state & (1 << i)) == (1 << i)
-			s += i.to_s() + ' '
-		end
-	end
-	s += 'touched'
+  s += 'Electrodes '
+  for i in 0..11
+    if (state & (1 << i)) == (1 << i)
+      s += i.to_s() + ' '
+    end
+  end
+  s += 'touched'
 end
 
 puts s

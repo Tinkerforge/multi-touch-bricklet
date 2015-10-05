@@ -16,22 +16,22 @@ if __name__ == "__main__":
     # Don't use device before ipcon is connected
 
     # Get current touch state
-    touch_state = mt.get_touch_state()
+    state = mt.get_touch_state()
+    s = ""
 
-    s = ''
-    if touch_state & (1 << 12):
-        s += 'In proximity, '
+    if state & (1 << 12):
+        s += "In proximity, "
 
-    if (touch_state & 0xFFF) == 0:
-        s += 'No electrodes touched\n'
+    if (state & 0xfff) == 0:
+        s += "No electrodes touched"
     else:
-        s += 'Electrodes '
+        s += "Electrodes "
         for i in range(12):
-            if touch_state & (1 << i):
-                s += str(i) + ' '
-        s += 'touched\n'
+            if state & (1 << i):
+                s += str(i) + " "
+        s += "touched"
 
     print(s)
 
-    raw_input('Press key to exit\n') # Use input() in Python 3
+    raw_input("Press key to exit\n") # Use input() in Python 3
     ipcon.disconnect()

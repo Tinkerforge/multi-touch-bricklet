@@ -1,3 +1,4 @@
+using System;
 using Tinkerforge;
 
 class Example
@@ -15,30 +16,29 @@ class Example
 		// Don't use device before ipcon is connected
 
 		// Get current touch state
-		int touchState = mt.GetTouchState();
-
+		int state = mt.GetTouchState();
 		string str = "";
 
-		if((touchState & (1 << 12)) == (1 << 12)) {
+		if((state & (1 << 12)) == (1 << 12)) {
 			str += "In proximity, ";
 		}
 
-		if((touchState & 0xfff) == 0) {
-			str += "No electrodes touched" + System.Environment.NewLine;
+		if((state & 0xfff) == 0) {
+			str += "No electrodes touched";
 		} else {
 			str += "Electrodes ";
 			for(int i = 0; i < 12; i++) {
-				if((touchState & (1 << i)) == (1 << i)) {
+				if((state & (1 << i)) == (1 << i)) {
 					str += i + " ";
 				}
 			}
-			str += "touched" + System.Environment.NewLine;
+			str += "touched"
 		}
 
-		System.Console.WriteLine(str);
+		Console.WriteLine(str);
 
-		System.Console.WriteLine("Press enter to exit");
-		System.Console.ReadLine();
+		Console.WriteLine("Press enter to exit");
+		Console.ReadLine();
 		ipcon.Disconnect();
 	}
 }

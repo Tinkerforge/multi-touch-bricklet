@@ -2,51 +2,51 @@ var Tinkerforge = require('tinkerforge');
 
 var HOST = 'localhost';
 var PORT = 4223;
-var UID = 'jQs'; // Change to your UID
+var UID = 'XYZ'; // Change to your UID
 
 var ipcon = new Tinkerforge.IPConnection(); // Create IP connection
 var mt = new Tinkerforge.BrickletMultiTouch(UID, ipcon); // Create device object
 
 ipcon.connect(HOST, PORT,
-    function(error) {
-        console.log('Error: '+error);
+    function (error) {
+        console.log('Error: ' + error);
     }
 ); // Connect to brickd
 // Don't use device before ipcon is connected
 
 ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
-    function(connectReason) {
+    function (connectReason) {
         // Get current touch state
         mt.getTouchState(
-            function(touchState) {
+            function (state) {
                 var s = '';
-                if (touchState & (1 << 12)) {
+                if(state & (1 << 12)) {
                     s += 'In proximity, ';
                 }
-                if ((touchState & 0xFFF) === 0) {
-                    s += 'No electrodes touched\n'
+                if((state & 0xfff) === 0) {
+                    s += 'No electrodes touched';
                 }
                 else {
                     s += 'Electrodes ';
-                    for(var i=0; i<12; i++) {
-                        if(touchState & (1 << i)) {
-                            s += parseInt(i)+' ';
+                    for(var i = 0; i < 12; ++i) {
+                        if(state & (1 << i)) {
+                            s += i + ' ';
                         }
                     }
-                    s += 'touched\n'
+                    s += 'touched';
                 }
                 console.log(s);
             },
-            function(error) {
-                console.log('Error: '+error);
+            function (error) {
+                console.log('Error: ' + error);
             }
         );
     }
 );
 
-console.log("Press any key to exit ...");
+console.log('Press key to exit');
 process.stdin.on('data',
-    function(data) {
+    function (data) {
         ipcon.disconnect();
         process.exit(0);
     }

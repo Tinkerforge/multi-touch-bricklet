@@ -12,7 +12,7 @@ type
     ipcon: TIPConnection;
     mt: TBrickletMultiTouch;
   public
-    procedure TouchStateCB(sender: TBrickletMultiTouch; const touchState: word);
+    procedure TouchStateCB(sender: TBrickletMultiTouch; const state: word);
     procedure Execute;
   end;
 
@@ -24,28 +24,26 @@ const
 var
   e: TExample;
 
-{ Callback function for touch state }
-procedure TExample.TouchStateCB(sender: TBrickletMultiTouch; const touchState: word);
+{ Callback procedure for touch state callback }
+procedure TExample.TouchStateCB(sender: TBrickletMultiTouch; const state: word);
 var i: integer;
 begin
-  if (touchState And (1 Shl 12)) = (1 Shl 12) then begin
+  if (state And (1 Shl 12)) = (1 Shl 12) then begin
     Write('In proximity, ');
   end;
 
-  if (touchState And $fff) = 0 then begin
+  if (state And $fff) = 0 then begin
     WriteLn('No electrodes touched');
   end
   else begin
     Write('Electrodes ');
-    for i:= 0 to 11 do
-	begin
-	  if (touchState And (1 Shl i)) = (1 Shl i) then begin
-	    Write(IntToStr(i) + ' ');
+    for i := 0 to 11 do begin
+      if (state And (1 Shl i)) = (1 Shl i) then begin
+        Write(IntToStr(i) + ' ');
       end;
-	end;
-	WriteLn('touched');
+    end;
+    WriteLn('touched');
   end;
-  WriteLn('');
 end;
 
 procedure TExample.Execute;

@@ -1,8 +1,8 @@
 #!/bin/sh
-# connects to localhost:4223 by default, use --host and --port to change it
+# Connects to localhost:4223 by default, use --host and --port to change this
 
-# change to your UID
-uid=XYZ
 
-# get current touch state
+uid=XYZ # Change to your UID
+
+# Get current touch state
 tinkerforge call multi-touch-bricklet $uid get-touch-state

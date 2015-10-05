@@ -1,3 +1,4 @@
+using System;
 using Tinkerforge;
 
 class Example
@@ -6,28 +7,28 @@ class Example
 	private static int PORT = 4223;
 	private static string UID = "XYZ"; // Change to your UID
 
-	// Callback function for touch state
-	static void TouchStateCB(BrickletMultiTouch sender, int touchState)
+	// Callback function for touch state callback
+	static void TouchStateCB(BrickletMultiTouch sender, int state)
 	{
 		string str = "";
 
-		if((touchState & (1 << 12)) == (1 << 12)) {
+		if((state & (1 << 12)) == (1 << 12)) {
 			str += "In proximity, ";
 		}
 
-		if((touchState & 0xfff) == 0) {
-			str += "No electrodes touched" + System.Environment.NewLine;
+		if((state & 0xfff) == 0) {
+			str += "No electrodes touched";
 		} else {
 			str += "Electrodes ";
 			for(int i = 0; i < 12; i++) {
-				if((touchState & (1 << i)) == (1 << i)) {
+				if((state & (1 << i)) == (1 << i)) {
 					str += i + " ";
 				}
 			}
-			str += "touched" + System.Environment.NewLine;
+			str += "touched"
 		}
 
-		System.Console.WriteLine(str);
+		Console.WriteLine(str);
 	}
 
 	static void Main()
@@ -38,11 +39,11 @@ class Example
 		ipcon.Connect(HOST, PORT); // Connect to brickd
 		// Don't use device before ipcon is connected
 
-		// Register touchState callback to function TouchStateCB
+		// Register touch state callback to function TouchStateCB
 		mt.TouchState += TouchStateCB;
 
-		System.Console.WriteLine("Press enter to exit");
-		System.Console.ReadLine();
+		Console.WriteLine("Press enter to exit");
+		Console.ReadLine();
 		ipcon.Disconnect();
 	}
 }

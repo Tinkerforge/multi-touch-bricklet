@@ -17,22 +17,22 @@ $ipcon->connect(HOST, PORT); // Connect to brickd
 // Don't use device before ipcon is connected
 
 // Get current touch state
-$touchState = $mt->getTouchState();
+$state = $mt->getTouchState();
 
-if($touchState & (1 << 12)) {
-	echo "In proximity, ";
+if($state & (1 << 12)) {
+    echo "In proximity, ";
 }
 
-if(($touchState & 0xfff) == 0) {
-	echo "No electrodes touched\n\n";
+if(($state & 0xfff) == 0) {
+    echo "No electrodes touched\n";
 } else {
-	echo "Electrodes ";
-	for($i = 0; $i < 12; $i++) {
-		if($touchState & (1 << $i)) {
-			echo $i . " ";
-		}
-	}
-	echo "touched\n\n";
+    echo "Electrodes ";
+    for($i = 0; $i < 12; $i++) {
+        if($state & (1 << $i)) {
+            echo $i . " ";
+        }
+    }
+    echo "touched\n";
 }
 
 echo "Press key to exit\n";

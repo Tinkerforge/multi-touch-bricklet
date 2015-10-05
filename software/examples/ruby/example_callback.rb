@@ -16,27 +16,27 @@ mt = BrickletMultiTouch.new UID, ipcon # Create device object
 ipcon.connect HOST, PORT # Connect to brickd
 # Don't use device before ipcon is connected
 
-# Register touch_state callback (parameter has unit Lux/10)
-mt.register_callback(BrickletMultiTouch::CALLBACK_TOUCH_STATE) do |touch_state|
-    s = ''
-    if (touch_state & (1 << 12)) == (1 << 12)
-        s += 'In proximity, '
-    end
+# Register touch state callback
+mt.register_callback(BrickletMultiTouch::CALLBACK_TOUCH_STATE) do |state|
+  s = ''
 
-    if (touch_state & 0xFFF) == 0
-        s += 'No electrodes touched'
-    else
-        s += 'Electrodes '
-        for i in 0..11
-            if (touch_state & (1 << i)) == (1 << i)
-                s += i.to_s() + ' '
-            end
-        end
-        s += 'touched'
-    end
+  if (state & (1 << 12)) == (1 << 12)
+    s += 'In proximity, '
+  end
 
-    puts s
-    puts
+  if (state & 0xfff) == 0
+    s += 'No electrodes touched'
+  else
+    s += 'Electrodes '
+    for i in 0..11
+      if (state & (1 << i)) == (1 << i)
+        s += i.to_s() + ' '
+      end
+    end
+    s += 'touched'
+  end
+
+  puts s
 end
 
 puts 'Press key to exit'

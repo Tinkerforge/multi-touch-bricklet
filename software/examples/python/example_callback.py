@@ -8,20 +8,21 @@ UID = "XYZ" # Change to your UID
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_multi_touch import BrickletMultiTouch
 
-# Callback function for touch_state
-def cb_touch_state(touch_state):
-    s = ''
-    if touch_state & (1 << 12):
-        s += 'In proximity, '
+# Callback function for touch state callback
+def cb_touch_state(state):
+    s = ""
 
-    if (touch_state & 0xFFF) == 0:
-        s += 'No electrodes touched\n'
+    if state & (1 << 12):
+        s += "In proximity, "
+
+    if (state & 0xfff) == 0:
+        s += "No electrodes touched"
     else:
-        s += 'Electrodes '
+        s += "Electrodes "
         for i in range(12):
-            if touch_state & (1 << i):
-                s += str(i) + ' '
-        s += 'touched\n'
+            if state & (1 << i):
+                s += str(i) + " "
+        s += "touched"
 
     print(s)
 
@@ -35,5 +36,5 @@ if __name__ == "__main__":
     # Register touch state callback to function cb_touch_state
     mt.register_callback(mt.CALLBACK_TOUCH_STATE, cb_touch_state)
 
-    raw_input('Press key to exit\n') # Use input() in Python 3
+    raw_input("Press key to exit\n") # Use input() in Python 3
     ipcon.disconnect()

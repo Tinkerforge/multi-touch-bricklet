@@ -1,3 +1,4 @@
+Imports System
 Imports Tinkerforge
 
 Module ExampleSimple
@@ -13,11 +14,29 @@ Module ExampleSimple
         ' Don't use device before ipcon is connected
 
         ' Get current touch state
-        Dim touchState As Integer = mt.GetTouchState()
-        System.Console.WriteLine("TouchState: " + touchState.ToString())
+        Dim state As Integer = mt.GetTouchState()
+        Dim s As String = ""
 
-        System.Console.WriteLine("Press key to exit")
-        System.Console.ReadLine()
+        If ((state And (1 << 12)) = (1 << 12)) Then
+            s &= "In proximity, "
+        End If
+
+        If ((state And &Hfff) = 0) Then
+            s &= "No electrodes touched"
+        Else
+            s &= "Electrodes "
+            For i As Integer = 0 To 11
+                If ((state And (1 << i)) = (1 << i)) Then
+                    s &= i.ToString() & " "
+                End If
+            Next
+            s &= "touched"
+        End If
+
+        Console.WriteLine(s)
+
+        Console.WriteLine("Press key to exit")
+        Console.ReadLine()
         ipcon.Disconnect()
     End Sub
 End Module

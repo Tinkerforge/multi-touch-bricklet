@@ -7,25 +7,25 @@
 #define PORT 4223
 #define UID "XYZ" // Change to your UID
 
-// Callback function for touch_state 
-void cb_touch_state(uint16_t touch_state, void *user_data) {
+// Callback function for touch state callback
+void cb_touch_state(uint16_t state, void *user_data) {
 	(void)user_data; // avoid unused parameter warning
 
-	if(touch_state & (1 << 12)) {
+	if(state & (1 << 12)) {
 		printf("In proximity, ");
 	}
 
-	if((touch_state & 0xfff) == 0) {
-		printf("No electrodes touched\n\n");
+	if((state & 0xfff) == 0) {
+		printf("No electrodes touched\n");
 	} else {
 		printf("Electrodes ");
 		int i;
 		for(i = 0; i < 12; i++) {
-			if(touch_state & (1 << i)) {
+			if(state & (1 << i)) {
 				printf("%d ", i);
 			}
 		}
-		printf("touched\n\n");
+		printf("touched\n");
 	}
 }
 
@@ -45,7 +45,7 @@ int main(void) {
 	}
 	// Don't use device before ipcon is connected
 
-	// Register touch_state callback to function cb_touch_state
+	// Register touch state callback to function cb_touch_state
 	multi_touch_register_callback(&mt,
 	                              MULTI_TOUCH_CALLBACK_TOUCH_STATE,
 	                              (void *)cb_touch_state,

@@ -23,28 +23,28 @@ int main(void) {
 	}
 	// Don't use device before ipcon is connected
 
-	// Get current touch_state
-	uint16_t touch_state;
-	if(multi_touch_get_touch_state(&mt, &touch_state) < 0) {
-		fprintf(stderr, "Could not get value, probably timeout\n");
+	// Get current touch state
+	uint16_t state;
+	if(multi_touch_get_touch_state(&mt, &state) < 0) {
+		fprintf(stderr, "Could not get touch state, probably timeout\n");
 		return 1;
 	}
 
-	if(touch_state & (1 << 12)) {
+	if(state & (1 << 12)) {
 		printf("In proximity, ");
 	}
 
-	if((touch_state & 0xfff) == 0) {
-		printf("No electrodes touched\n\n");
+	if((state & 0xfff) == 0) {
+		printf("No electrodes touched\n");
 	} else {
 		printf("Electrodes ");
 		int i;
 		for(i = 0; i < 12; i++) {
-			if(touch_state & (1 << i)) {
+			if(state & (1 << i)) {
 				printf("%d ", i);
 			}
 		}
-		printf("touched\n\n");
+		printf("touched\n");
 	}
 
 	printf("Press key to exit\n");

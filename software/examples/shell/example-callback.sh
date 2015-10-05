@@ -1,8 +1,12 @@
 #!/bin/sh
-# connects to localhost:4223 by default, use --host and --port to change it
+# Connects to localhost:4223 by default, use --host and --port to change this
 
-# change to your UID
-uid=XYZ
 
-# handle incoming touch state callbacks
-tinkerforge dispatch multi-touch-bricklet $uid touch-state
+uid=XYZ # Change to your UID
+
+# Handle incoming touch state callbacks
+tinkerforge dispatch multi-touch-bricklet $uid touch-state &
+
+echo "Press key to exit"; read dummy
+
+kill -- -$$ # Stop callback dispatch in background

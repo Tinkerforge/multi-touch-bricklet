@@ -24,8 +24,7 @@ var
   e: TExample;
 
 procedure TExample.Execute;
-var touchState: word;
-var i: integer;
+var state: word; i: integer;
 begin
   { Create IP connection }
   ipcon := TIPConnection.Create;
@@ -38,25 +37,25 @@ begin
   { Don't use device before ipcon is connected }
 
   { Get current touch state }
-  touchState := mt.GetTouchState;
+  state := mt.GetTouchState;
 
-  if (touchState And (1 Shl 12)) = (1 Shl 12) then begin
+  if (state And (1 Shl 12)) = (1 Shl 12) then begin
     Write('In proximity, ');
   end;
 
-  if (touchState And $fff) = 0 then begin
+  if (state And $fff) = 0 then begin
     WriteLn('No electrodes touched');
   end
   else begin
     Write('Electrodes ');
-    for i:= 0 to 11 do
-	begin
-	  if (touchState And (1 Shl i)) = (1 Shl i) then begin
-	    Write(IntToStr(i) + ' ');
+    for i := 0 to 11 do begin
+      if (state And (1 Shl i)) = (1 Shl i) then begin
+        Write(IntToStr(i) + ' ');
       end;
-	end;
-	WriteLn('touched');
+    end;
+    WriteLn('touched');
   end;
+  WriteLn('');
 
   WriteLn('Press key to exit');
   ReadLn;

@@ -34,37 +34,36 @@
                 var mt = new Tinkerforge.BrickletMultiTouch(UID, ipcon); // Create device object
                 ipcon.connect(HOST, PORT,
                     function(error) {
-                        textArea.value += 'Error: '+error+ '\n';
+                        textArea.value += 'Error: ' + error + '\n';
                     }
                 ); // Connect to brickd
                 // Don't use device before ipcon is connected
 
-                // Don't use device before ipcon is connected
                 ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
-                    function(connectReason) {
+                    function (connectReason) {
                         // Get current touch state
                         mt.getTouchState(
-                            function(touchState) {
+                            function (state) {
                                 var s = '';
-                                if (touchState & (1 << 12)) {
+                                if(state & (1 << 12)) {
                                     s += 'In proximity, ';
                                 }
-                                if ((touchState & 0xFFF) === 0) {
-                                    s += 'No electrodes touched\n'
+                                if((state & 0xfff) === 0) {
+                                    s += 'No electrodes touched\n';
                                 }
                                 else {
                                     s += 'Electrodes ';
-                                    for(var i=0; i<12; i++) {
-                                        if(touchState & (1 << i)) {
-                                            s += parseInt(i)+' ';
+                                    for(var i = 0; i < 12; ++i) {
+                                        if(state & (1 << i)) {
+                                            s += i + ' ';
                                         }
                                     }
-                                    s += 'touched\n'
+                                    s += 'touched\n';
                                 }
                                 textArea.value += s;
                             },
-                            function(error) {
-                                textArea.value += 'Error: '+error+'\n';
+                            function (error) {
+                                textArea.value += 'Error: ' + error + '\n';
                             }
                         );
                     }
