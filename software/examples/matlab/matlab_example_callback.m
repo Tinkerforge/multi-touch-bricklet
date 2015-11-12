@@ -7,7 +7,7 @@ function matlab_example_callback()
     UID = 'XYZ'; % Change to your UID
 
     ipcon = IPConnection(); % Create IP connection
-    mt = BrickletMultiTouch(UID, ipcon); % Create device object
+    mt = handle(BrickletMultiTouch(UID, ipcon), 'CallbackProperties'); % Create device object
 
     ipcon.connect(HOST, PORT); % Connect to brickd
     % Don't use device before ipcon is connected
