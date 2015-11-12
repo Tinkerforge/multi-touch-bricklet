@@ -32,7 +32,7 @@ class Example
 					str += i + " ";
 				}
 			}
-			str += "touched"
+			str += "touched";
 		}
 
 		Console.WriteLine(str);
