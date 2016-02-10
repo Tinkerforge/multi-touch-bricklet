@@ -1,8 +1,6 @@
 import com.tinkerforge.IPConnection;
 import com.tinkerforge.BrickletMultiTouch;
 
-// FIXME: This example is incomplete
-
 public class ExampleSimple {
 	private static final String HOST = "localhost";
 	private static final int PORT = 4223;
