@@ -5,7 +5,7 @@
 
 #define HOST "localhost"
 #define PORT 4223
-#define UID "XYZ" // Change to your UID
+#define UID "XYZ" // Change XYZ to the UID of your Multi Touch Bricklet
 
 // Callback function for touch state callback
 void cb_touch_state(uint16_t state, void *user_data) {

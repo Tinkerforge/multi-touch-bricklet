@@ -4,7 +4,7 @@ Imports Tinkerforge
 Module ExampleCallback
     Const HOST As String = "localhost"
     Const PORT As Integer = 4223
-    Const UID As String = "XYZ" ' Change to your UID
+    Const UID As String = "XYZ" ' Change XYZ to the UID of your Multi Touch Bricklet
 
     ' Callback subroutine for touch state callback
     Sub TouchStateCB(ByVal sender As BrickletMultiTouch, ByVal state As Integer)
