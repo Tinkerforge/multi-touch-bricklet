@@ -40,7 +40,7 @@ class Example
 		// Don't use device before ipcon is connected
 
 		// Register touch state callback to function TouchStateCB
-		mt.TouchState += TouchStateCB;
+		mt.TouchStateCallback += TouchStateCB;
 
 		Console.WriteLine("Press enter to exit");
 		Console.ReadLine();
