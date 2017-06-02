@@ -5,8 +5,8 @@ function octave_example_callback()
     PORT = 4223;
     UID = "XYZ"; % Change XYZ to the UID of your Multi Touch Bricklet
 
-    ipcon = java_new("com.tinkerforge.IPConnection"); % Create IP connection
-    mt = java_new("com.tinkerforge.BrickletMultiTouch", UID, ipcon); % Create device object
+    ipcon = javaObject("com.tinkerforge.IPConnection"); % Create IP connection
+    mt = javaObject("com.tinkerforge.BrickletMultiTouch", UID, ipcon); % Create device object
 
     ipcon.connect(HOST, PORT); % Connect to brickd
     % Don't use device before ipcon is connected
