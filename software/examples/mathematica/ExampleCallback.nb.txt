@@ -27,7 +27,7 @@ TouchStateCB[sender_,state_]:=
   Print[StringJoin[result]]
  ]
 
-AddEventHandler[mt@TouchState,TouchStateCB]
+AddEventHandler[mt@TouchStateCallback,TouchStateCB]
 
 Input["Click OK to exit"]
 

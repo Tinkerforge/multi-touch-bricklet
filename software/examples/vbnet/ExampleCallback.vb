@@ -37,7 +37,7 @@ Module ExampleCallback
         ' Don't use device before ipcon is connected
 
         ' Register touch state callback to subroutine TouchStateCB
-        AddHandler mt.TouchState, AddressOf TouchStateCB
+        AddHandler mt.TouchStateCallback, AddressOf TouchStateCB
 
         Console.WriteLine("Press key to exit")
         Console.ReadLine()
