@@ -22,7 +22,7 @@ TouchStateCB[sender_,state_]:=
    For[i=-1,i>=-12,--i,
     If[touchStateBits[[i]]==1,AppendTo[result,ToString[Abs[i]-1]<>" "]]
    ];
-   AppendTo[result,"touched"];
+   AppendTo[result,"touched"]
   ];
   Print[StringJoin[result]]
  ]
