@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:tinkerforge
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -29,9 +29,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:tinkerforge
-LIBS:multi_touch-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -79,7 +77,7 @@ F 3 "" H 4900 3900 60  0001 C CNN
 	1    4900 3900
 	1    0    0    -1  
 $EndComp
-Text Notes 550  7200 0    40   ~ 0
+Text Notes 550  7700 0    40   ~ 0
 Copyright Tinkerforge GmbH 2013.\nThis documentation describes Open Hardware and is licensed under the\nCERN OHL v. 1.1.\nYou may redistribute and modify this documentation under the terms of the\nCERN OHL v.1.1. (http://ohwr.org/cernohl). This documentation is distributed\nWITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF\nMERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A\nPARTICULAR PURPOSE. Please see the CERN OHL v.1.1 for applicable\nconditions\n
 NoConn ~ 3400 3450
 $Comp
@@ -132,7 +130,7 @@ U 1 1 4C5FD6ED
 P 4300 3200
 F 0 "C1" V 4450 3200 50  0000 L CNN
 F 1 "100nF" V 4150 3100 50  0000 L CNN
-F 2 "0603" H 4300 3200 60  0001 C CNN
+F 2 "C0603" H 4300 3200 60  0001 C CNN
 F 3 "" H 4300 3200 60  0001 C CNN
 	1    4300 3200
 	0    -1   -1   0   
@@ -209,7 +207,7 @@ U 1 1 51FA17FF
 P 5850 3900
 F 0 "C2" V 6000 3900 50  0000 L CNN
 F 1 "100nF" V 5700 3800 50  0000 L CNN
-F 2 "0603" H 5850 3900 60  0001 C CNN
+F 2 "C0603" H 5850 3900 60  0001 C CNN
 F 3 "" H 5850 3900 60  0001 C CNN
 	1    5850 3900
 	-1   0    0    1   
@@ -242,7 +240,7 @@ U 1 1 51FA1892
 P 6250 4950
 F 0 "R1" V 6330 4950 50  0000 C CNN
 F 1 "75k" V 6250 4950 50  0000 C CNN
-F 2 "0603" H 6250 4950 60  0001 C CNN
+F 2 "R0603" H 6250 4950 60  0001 C CNN
 F 3 "" H 6250 4950 60  0000 C CNN
 	1    6250 4950
 	1    0    0    -1  
@@ -264,7 +262,7 @@ U 1 1 51FA1930
 P 6050 4950
 F 0 "C3" V 6200 4950 50  0000 L CNN
 F 1 "100nF" V 5900 4850 50  0000 L CNN
-F 2 "0603" H 6050 4950 60  0001 C CNN
+F 2 "C0603" H 6050 4950 60  0001 C CNN
 F 3 "" H 6050 4950 60  0001 C CNN
 	1    6050 4950
 	-1   0    0    1   
@@ -283,12 +281,12 @@ $EndComp
 $Comp
 L CONN_12 P2
 U 1 1 51FF9ACF
-P 8050 4550
-F 0 "P2" V 8000 4550 60  0000 C CNN
-F 1 "CONN_12" V 8100 4550 60  0000 C CNN
-F 2 "pin_array_6x2" H 8050 4550 60  0001 C CNN
-F 3 "" H 8050 4550 60  0000 C CNN
-	1    8050 4550
+P 8000 4550
+F 0 "P2" V 7950 4550 60  0000 C CNN
+F 1 "CONN_12" V 8050 4550 60  0000 C CNN
+F 2 "pin_array_6x2" H 8000 4550 60  0001 C CNN
+F 3 "" H 8000 4550 60  0000 C CNN
+	1    8000 4550
 	1    0    0    1   
 $EndComp
 Wire Wire Line
