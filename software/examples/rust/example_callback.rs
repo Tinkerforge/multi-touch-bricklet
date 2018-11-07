@@ -12,9 +12,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     ipcon.connect((HOST, PORT)).recv()??; // Connect to brickd
                                           // Don't use device before ipcon is connected
 
-    //Create receiver for touch state events.
-    let touch_state_receiver = mt.get_touch_state_receiver();
-    // Spawn thread to handle received events. This thread ends when the mt
+    let touch_state_receiver = mt.get_touch_state_callback_receiver();
+    
+    // Spawn thread to handle received events.
+    // This thread ends when the `mt` object
     // is dropped, so there is no need for manual cleanup.
     thread::spawn(move || {
         for state_change in touch_state_receiver {
