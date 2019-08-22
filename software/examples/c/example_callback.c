@@ -48,7 +48,7 @@ int main(void) {
 	// Register touch state callback to function cb_touch_state
 	multi_touch_register_callback(&mt,
 	                              MULTI_TOUCH_CALLBACK_TOUCH_STATE,
-	                              (void *)cb_touch_state,
+	                              (void (*)(void))cb_touch_state,
 	                              NULL);
 
 	printf("Press key to exit\n");
