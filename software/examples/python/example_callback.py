@@ -36,5 +36,5 @@ if __name__ == "__main__":
     # Register touch state callback to function cb_touch_state
     mt.register_callback(mt.CALLBACK_TOUCH_STATE, cb_touch_state)
 
-    raw_input("Press key to exit\n") # Use input() in Python 3
+    input("Press key to exit\n") # Use raw_input() in Python 2
     ipcon.disconnect()
