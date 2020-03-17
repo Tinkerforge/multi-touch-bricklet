@@ -2,18 +2,18 @@ use std::{error::Error, io};
 
 use tinkerforge::{ip_connection::IpConnection, multi_touch_bricklet::*};
 
-const HOST: &str = "127.0.0.1";
+const HOST: &str = "localhost";
 const PORT: u16 = 4223;
-const UID: &str = "XYZ"; // Change XYZ to the UID of your Multi Touch Bricklet
+const UID: &str = "XYZ"; // Change XYZ to the UID of your Multi Touch Bricklet.
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let ipcon = IpConnection::new(); // Create IP connection
-    let mt = MultiTouchBricklet::new(UID, &ipcon); // Create device object
+    let ipcon = IpConnection::new(); // Create IP connection.
+    let mt = MultiTouchBricklet::new(UID, &ipcon); // Create device object.
 
-    ipcon.connect((HOST, PORT)).recv()??; // Connect to brickd
-                                          // Don't use device before ipcon is connected
+    ipcon.connect((HOST, PORT)).recv()??; // Connect to brickd.
+                                          // Don't use device before ipcon is connected.
 
-    // Get current touch state
+    // Get current touch state.
     let state = mt.get_touch_state().recv()?;
     let mut string = String::new();
 
