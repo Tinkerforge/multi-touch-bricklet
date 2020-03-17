@@ -3,24 +3,26 @@
 setup:
 	# Handle incoming touch state callbacks
 	subscribe to tinkerforge/callback/multi_touch_bricklet/XYZ/touch_state
-        if a message arrives:
-            # message contains state as int
-            set result_string to ""
-            if bit 12 of state is set
-                append "In proximity, " to result_string
-            endif
-            
-            if bits 0 to 11 of state are not set
-                append "No electrodes touched" to result_string
-            elseif
-                append "Electrodes " to result_string
-                for i in 0..12
-                    if bit i of state is set
-                        append i and " " to result_string
-                    endif
-                endfor
-            endif
-            
-            print result_string   
-        endif
-	publish '{"register": true}' to tinkerforge/register/multi_touch_bricklet/XYZ/touch_state # register touch_state callback
+		if a message arrives:
+			# message contains state as int
+			set result_string to ""
+			if bit 12 of state is set
+				append "In proximity, " to result_string
+			endif
+
+			if bits 0 to 11 of state are not set
+				append "No electrodes touched" to result_string
+			elseif
+				append "Electrodes " to result_string
+				for i in 0..12
+					if bit i of state is set
+						append i and " " to result_string
+					endif
+				endfor
+			endif
+
+			print result_string
+		endif
+	endsubscribe
+
+	publish '{"register": true}' to tinkerforge/register/multi_touch_bricklet/XYZ/touch_state # Register touch_state callback
