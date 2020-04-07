@@ -31,6 +31,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         }
         string.push_str("touched");
+        println!("{}", string);
     }
 
     println!("Press enter to exit.");
