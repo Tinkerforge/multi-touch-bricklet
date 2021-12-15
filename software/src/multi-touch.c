@@ -178,6 +178,7 @@ void get_electrode_config(const ComType com, const GetElectrodeConfig *data) {
 void set_electrode_sensitivity(const ComType com, const SetElectrodeSensitivity *data) {
 	BC->sensitivity = BETWEEN(ELECTRODE_SENSITIVITY_MIN, data->sensitivity, ELECTRODE_SENSITIVITY_MAX);
 	mpr121_update_sensitivity();
+	BA->com_return_setter(com, data);
 }
 
 void get_electrode_sensitivity(const ComType com, const GetElectrodeSensitivity *data) {

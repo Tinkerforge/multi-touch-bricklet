@@ -1,2 +1,5 @@
 2013-10-31: 2.0.0 (b5d4915)
 - Initial version
+
+2021-12-15: 2.0.1 (b5d4915)
+- Make sure set_electrode_sensitivity returns if response expected
